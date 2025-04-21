@@ -86,16 +86,20 @@ public class Main {
     }
 
     private static void cadastrarProduto(ProductRepository repo) {
-        scanner.nextLine(); // limpar buffer
+        scanner.nextLine();
         System.out.println("\n=== Cadastro de Produto ===");
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
-        System.out.print("Preço: ");
-        double preco = scanner.nextDouble();
+        try {
+            System.out.print("Preço: ");
+            double preco = scanner.nextDouble();
 
-        Product produto = new Product(nome, preco);
-        repo.save(produto);
-        System.out.println("Produto cadastrado com sucesso!");
+            Product produto = new Product(nome, preco);
+            repo.save(produto);
+            System.out.println("Produto cadastrado com sucesso!");
+        } catch (InputMismatchException e) {
+            System.out.println("Valor invalido: " + e.getMessage());
+        }
     }
 
     private static void listarProdutos(ProductRepository repo) {
